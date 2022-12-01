@@ -263,7 +263,7 @@ class WeChatMessage(BaseWeChatAPI):
         }
         return self._send_custom_message(data, account=account)
 
-    def delete_mass(self, msg_id):
+    def delete_mass(self, msg_id, article_idx=0):
         """
         删除群发消息
 
@@ -271,6 +271,7 @@ class WeChatMessage(BaseWeChatAPI):
         https://mp.weixin.qq.com/wiki?id=mp1481187827_i0l21
 
         :param msg_id: 要删除的群发消息 ID
+        :param article_idx: 要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章
         :return: 返回的 JSON 数据包
 
         使用示例::
@@ -281,7 +282,7 @@ class WeChatMessage(BaseWeChatAPI):
             res = client.message.delete_mass('message id')
 
         """
-        return self._post("message/mass/delete", data={"msg_id": msg_id})
+        return self._post("message/mass/delete", data={"msg_id": msg_id, "article_idx": article_idx})
 
     def _send_mass_message(
         self,
